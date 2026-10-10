@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+	<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fiorella</title>
+</head>
+<body>
+  <header class="sticky-nav">
+        <strong>botoes de menu aqui</strong>
+	<button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle dark mode">
+  <span class="sun-icon">☀️</span>
+  <span class="moon-icon">🌙</span>
+</button>
+    </header>
+
+    <main class="content">
+        <h1>Fiorella E-Commerce</h1>
+        <p>Conteudo depende da aba selecionada</p>
+
+	<div class="product-card" onclick="toggleDescription(this)">
+  <div class="image-frame">
+    <img src="alho.jpg" alt="Alho triturado com azeite" class="product-img">
+    
+    <div class="description-overlay">
+      <p>AAAAAAAAAAAAAAAAAA.<br>
+      AAAAAAAAAAAAAAAAAAAAAAA.</p>
+    </div>
+  </div>
+
+  <div class="product-info-box">
+    <h3 class="product-name">Alho Triturado</h3>
+    <span class="product-price">R$ 15.00</span>
+  </div>
+</div>  
+        <div style="height: 1500px;"></div> 
+        <p>Fim da pagina.</p>
+    </main>
+	<script>
+	function toggleDescription(card) {
+  	card.classList.toggle('active');
+	}
+</script>
+ <script src="script.js"></script>
+</body>
+</html>
