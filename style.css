@@ -1,41 +1,44 @@
 :root {
-  --bg-body: #E8DFCD;
+  /* Background levemente azulado */
+  --bg-body: #E6F2F7;           
   --text-main: #1F1B18;
-  --text-muted: #5C5247;
+  --text-muted: #1F8A70;        
   
-  --bg-surface: #F4F0E6;
-  --bg-surface-inner: #ffffff;
+  /* Cor do Nav Bar e fundo do Card (Lilás/Roxo natural) */
+  --bg-surface: #9B86BD;        
   
-  --border-color: #C4B9A3;
-  --border-inner: #E8DFCD;
+  /* Caixas de preço em verde menta claro */
+  --bg-surface-inner: #D8F3DC;  
   
-  --shadow-nav: rgba(0,0,0,0.06);
-  --shadow-card: rgba(0,0,0,0.04);
+  --border-color: #806A9F;      
+  --border-inner: #B7E4C7;      
+  
+  --shadow-nav: rgba(0,0,0,0.15);
+  --shadow-card: rgba(0,0,0,0.06);
   --overlay-bg: rgba(0, 0, 0, 0.8);
   --overlay-text: #ffffff;
 }
 
-/* Dark Mode Overrides (Warm Charcoal Palette) */
 .dark-mode {
-  --bg-body: #161412;            /* Deep, warm black */
-  --text-main: #F4F0E6;          /* Soft off-white */
-  --text-muted: #A39682;         /* Warm muted grey */
+  /* Modo escuro com fundo azul escuro/meia-noite */
+  --bg-body: #0E1626;           
+  --text-main: #F4F0E6;            
+  --text-muted: #A3E4D7;        
   
-  --bg-surface: #24201C;         /* Dark chocolate/charcoal elevation */
-  --bg-surface-inner: #1F1B18;   /* Even deeper surface tier */
+  /* Nav Bar e Cards mudam para um roxo escuro natural */
+  --bg-surface: #2E2538;          
   
-  --border-color: #3D352E;       /* Subtle dark borders */
-  --border-inner: #24201C;       
+  /* Caixas de preço em verde menta escuro */
+  --bg-surface-inner: #132A13;   
+  
+  --border-color: #4A3A54;       
+  --border-inner: #1F3A24;       
   
   --shadow-nav: rgba(0,0,0,0.4);
   --shadow-card: rgba(0,0,0,0.3);
-  --overlay-bg: rgba(0, 0, 0, 0.85); /* Slightly darker overlay */
+  --overlay-bg: rgba(0, 0, 0, 0.85); 
   --overlay-text: #F4F0E6;
 }
-
-/* ==========================================================================
-   2. Components (Refactored to use Variables)
-   ========================================================================== */
 
 body {
     background-color: var(--bg-body); 
@@ -43,7 +46,7 @@ body {
     margin: 0;              
     min-height: 100vh;
     font-family: sans-serif;  
-    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth toggle */
+    transition: background-color 0.3s ease, color 0.3s ease; 
 }
 
 .sticky-nav {
@@ -56,12 +59,13 @@ body {
     background-color: var(--bg-surface);
     border-bottom: 1px solid var(--border-color);
     box-shadow: 0 2px 8px var(--shadow-nav);
+	  border-radius: 0 0 16px 16px;
     
     display: flex;
     align-items: center;
     justify-content: space-between;
- 	padding: 0 24px;
-	 box-sizing: border-box; 
+    padding: 0 24px;
+    box-sizing: border-box; 
     
     z-index: 1000;        
     transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
@@ -72,23 +76,27 @@ body {
     padding: 20px;
 }
 
-.product-card {
-  width: 300px;
+/* O retângulo horizontal do produto */
+.product-row-card {
+  display: flex; 
+  width: 100%;
+  max-width: 650px; 
+  height: 150px;    
   background-color: var(--bg-surface);
   border: 1px solid var(--border-color); 
   border-radius: 16px;       
   overflow: hidden;          
   cursor: pointer;
   box-shadow: 0 4px 10px var(--shadow-card);
-  display: inline-block;
-  margin: 15px;
+  margin: 15px auto; 
   transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.image-frame {
+/* Lado esquerdo (Imagem) */
+.image-frame-horizontal {
   position: relative;
-  width: 100%;
-  height: 220px;
+  width: 40%; 
+  height: 100%;
   overflow: hidden;
 }
 
@@ -111,61 +119,106 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 20px;
+  padding: 15px;
   box-sizing: border-box;
   text-align: center;
   opacity: 0; 
   transition: opacity 0.3s ease;
+  font-size: 0.85rem;
 }
 
-.product-card.active .description-overlay {
+.product-row-card.active .description-overlay {
   opacity: 1;
 }
-.product-card.active .product-img {
+.product-row-card.active .product-img {
   transform: scale(1.03);
 }
 
-.product-info-box {
+/* Lado direito (Caixa de Informações) */
+.product-details-side {
+  flex-grow: 1; /* CORREÇÃO: Faz a área verde esticar e ocupar todo o espaço restante */
   padding: 15px;
   display: flex;
+  flex-direction: column; 
   justify-content: space-between; 
-  align-items: center;
   background-color: var(--bg-surface-inner);      
-  border-top: 1px solid var(--border-inner);  
+  border-left: 1px solid var(--border-inner);  
+  box-sizing: border-box;
   transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.product-main-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
 }
 
 .product-name {
   margin: 0;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   font-weight: bold;
   color: var(--text-main);
   transition: color 0.3s ease;
 }
 
 .product-price {
-  font-size: 1rem;
+  font-size: 1.1rem;
   font-weight: bold;
   color: var(--text-muted); 
   transition: color 0.3s ease;
 }
 
+/* NOVA CLASSE ADICIONADA: Organiza a linha de baixo */
+.product-actions {
+  display: flex;
+  justify-content: space-between; /* Gramatura na esquerda, Botão na direita */
+  align-items: center;            /* Alinha os dois no meio verticalmente */
+  width: 100%;
+  margin-top: auto;               /* Empurra eles bem para o rodapé do card */
+}
+
+/* Estilo da gramatura */
+.product-weight {
+  font-size: 0.95rem;
+  font-weight: bold;
+  color: var(--text-main); /* Usa a cor escura no light mode e clara no dark mode */
+}
+
+/* Estilo do Botão */
+.add-to-cart-btn {
+  background-color: var(--bg-surface); 
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  cursor: pointer;
+  text-align: center;
+  transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+.add-to-cart-btn:hover {
+  filter: brightness(1.1);
+}
+
+.add-to-cart-btn:active {
+  transform: scale(0.98);
+}
+
+/* Botão do Alternador de Tema */
 .theme-toggle-btn {
   background-color: var(--bg-surface-inner);
   border: 1px solid var(--border-color);
   color: var(--text-main);
-  
   width: 44px;
   height: 44px;
-  border-radius: 50%; /* Perfect circle */
+  border-radius: 50%;
   cursor: pointer;
-  
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 1.2rem;
-  
-  margin-left: 20px; 
   box-shadow: 0 2px 5px var(--shadow-card);
   transition: transform 0.2s ease, background-color 0.3s ease, border-color 0.3s ease;
 }
@@ -178,16 +231,17 @@ body {
   transform: translateY(0);
 }
 
-:root .theme-toggle-btn .sun-icon {
+/* Lógica de exibição dos ícones Sol e Lua */
+.sun-icon {
   display: block; 
 }
-:root .theme-toggle-btn .moon-icon {
+.moon-icon {
   display: none; 
 }
 
-.dark-mode .theme-toggle-btn .sun-icon {
+.dark-mode .sun-icon {
   display: none; 
 }
-.dark-mode .theme-toggle-btn .moon-icon {
+.dark-mode .moon-icon {
   display: block;
 }

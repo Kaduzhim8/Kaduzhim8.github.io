@@ -1,47 +1,89 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-	<link rel="stylesheet" href="style.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fiorella</title>
+    <!-- O link do CSS agora fica perfeitamente inserido dentro do head -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header class="sticky-nav">
+    
+    <!-- Barra de Navegação Superior -->
+    <header class="sticky-nav">
         <strong>botoes de menu aqui</strong>
-	<button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle dark mode">
-  <span class="sun-icon">☀️</span>
-  <span class="moon-icon">🌙</span>
-</button>
+        <!-- O botão mantém o ID correto exigido pelo script de tema -->
+        <button class="theme-toggle-btn" id="theme-toggle" aria-label="Toggle Theme">
+            <span class="sun-icon">☀️</span>
+            <span class="moon-icon">🌙</span>
+        </button>
     </header>
 
+    <!-- Conteúdo Principal do E-Commerce -->
     <main class="content">
         <h1>Fiorella E-Commerce</h1>
         <p>Conteudo depende da aba selecionada</p>
 
-	<div class="product-card" onclick="toggleDescription(this)">
-  <div class="image-frame">
-    <img src="alho.jpg" alt="Alho triturado com azeite" class="product-img">
+        <!-- CARD DO PRODUTO (Retangular Horizontal) -->
+        <div class="product-row-card" onclick="toggleDescription(this)">
+            
+            <!-- Lado Esquerdo: Imagem e a Descrição Oculta (Clique) -->
+            <div class="image-frame-horizontal">
+                <img src="alho.jpg" alt="Alho triturado com azeite" class="product-img">
+                <div class="description-overlay">
+                    <p>AAAAAAAAAAAAAAAAAA.<br><br>AAAAAAAAAAAAAAAAAAAAAAA.</p>
+                </div>
+            </div>
+            
+            <!-- Lado Direito: Informações Sempre Visíveis + Botão -->
+            <div class="product-details-side">
+                <div class="product-main-info">
+                    <h3 class="product-name">Alho Triturado</h3>
+                    <span class="product-price">R$ 15,00</span>
+                </div>
+                <div class="product-actions">
+    	<!-- Fica no canto inferior esquerdo -->
+    	<span class="product-weight">200g</span>
     
-    <div class="description-overlay">
-      <p>AAAAAAAAAAAAAAAAAA.<br>
-      AAAAAAAAAAAAAAAAAAAAAAA.</p>
-    </div>
-  </div>
+    		<!-- Fica no canto inferior direito -->
+    		<button class="add-to-cart-btn" onclick="event.stopPropagation(); alert('Adicionado ao carrinho!');">
+       	 	Adicionar ao Carrinho
+    		</button>
+	</div>
+	
+            </div>
 
-  <div class="product-info-box">
-    <h3 class="product-name">Alho Triturado</h3>
-    <span class="product-price">R$ 15.00</span>
-  </div>
-</div>  
+        </div> <!-- O card fecha perfeitamente aqui! -->
+        
+        <!-- Elementos de teste empurrados para FORA da estrutura do produto -->
         <div style="height: 1500px;"></div> 
         <p>Fim da pagina.</p>
     </main>
-	<script>
-	function toggleDescription(card) {
-  	card.classList.toggle('active');
-	}
-</script>
- <script src="script.js"></script>
+
+    <!-- Scripts de Interação (Colocados no final do body por performance) -->
+    <script>
+        // Função responsável por abrir/fechar a descrição do alho
+        function toggleDescription(card) {
+            card.classList.toggle('active');
+        }
+
+        // Script original corrigido para gerenciar a troca entre Light e Dark Mode
+        const toggleBtn = document.getElementById('theme-toggle');
+        const savedTheme = localStorage.getItem('theme');
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+        if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+            document.documentElement.classList.add('dark-mode');
+        }
+
+        toggleBtn.addEventListener('click', () => {
+            document.documentElement.classList.toggle('dark-mode');
+            if (document.documentElement.classList.contains('dark-mode')) {
+                localStorage.setItem('theme', 'dark');
+            } else {
+                localStorage.setItem('theme', 'light');
+            }
+        });
+    </script>
 </body>
 </html>
